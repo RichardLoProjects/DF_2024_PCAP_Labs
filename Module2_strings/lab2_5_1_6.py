@@ -1,4 +1,4 @@
-'''Lab for PCAP 2.5.1.6 @ 2024-10-14'''
+'''Lab for PCAP 2.5.1.6 @ 2024-10-14, updated 2024-10-22'''
 def get_message() -> str:
     return input('Enter message: ')
 
@@ -17,39 +17,25 @@ def is_letter(char:str) -> bool:
     ascii_numbers = set(list(range(65,65+26)) + list(range(97,97+26)))
     return char.isalpha() and ord(char) in ascii_numbers
 
-def encode(msg:str, shift:int) -> str:
+def transform(msg:str, shift:int, decode:bool=False) -> str:
+    _sgn = -1 if decode else 1
     msg_out = ''
     for c in msg:
-        if not is_letter(c):
-            msg_out += c
-        elif c.isupper():
-            code_pt_offset = (ord(c)-ord('A')+shift)%26
-            msg_out += chr(65 + code_pt_offset)
+        if is_letter(c):
+            ord_a = ord('A') if c.isupper() else ord('a')
+            code_pt_offset = (ord(c) - ord_a + _sgn*shift)%26
+            msg_out += chr(ord_a + code_pt_offset)
         else:
-            code_pt_offset = (ord(c)-ord('a')+shift)%26
-            msg_out += chr(97 + code_pt_offset)
-    return msg_out
-
-def decode(msg:str, shift:int) -> str:
-    msg_out = ''
-    for c in msg:
-        if not is_letter(c):
             msg_out += c
-        elif c.isupper():
-            code_pt_offset = (ord(c)-ord('A')-shift)%26
-            msg_out += chr(65 + code_pt_offset)
-        else:
-            code_pt_offset = (ord(c)-ord('a')-shift)%26
-            msg_out += chr(97 + code_pt_offset)
     return msg_out
 
 def main() -> None:
-    message = get_message()
+    my_message = get_message()
     shiftvalue = get_shiftvalue()
-    encryption = encode(message, shiftvalue)
-    decryption = decode(encryption, shiftvalue)
-    print(encryption)
-    print(decryption)
+    encryption = transform(my_message, shiftvalue)
+    decryption = transform(encryption, shiftvalue, True)
+    print(f'encryption: {encryption}')
+    print(f'decryption: {decryption}')
 
 if __name__ == '__main__':
     main()

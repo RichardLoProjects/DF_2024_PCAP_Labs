@@ -1,4 +1,4 @@
-'''Lab for PCAP 2.4.1.6 @ 2024-10-11'''
+'''Lab for PCAP 2.4.1.6 @ 2024-10-11, updated 2024-10-22'''
 def get_number() -> int:
     number = -1
     while number < 0:
@@ -10,7 +10,7 @@ def get_number() -> int:
     return number
 
 def display_led(number) -> None:
-    assert (type(number) is int) and number>=0, 'Invalid number.'
+    assert isinstance(number, int) and number>=0, 'Invalid number.'
     digit_dict = {
         '1': '  # -  # -  # -  # -  # '.split('-'),
         '2': '### -  # -### -#   -### '.split('-'),

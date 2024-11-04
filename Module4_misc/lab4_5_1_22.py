@@ -15,3 +15,24 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+
+
+
+_ = '''
+pcap 4.5
+
+.strftime()
+.strptime()
+
+datetime module
+date.today()
+date.fromtimestamp()
+time
+datetime subclass of date
+timedelta
+
+time module
+time.time()
+time.sleep()
+'''
+

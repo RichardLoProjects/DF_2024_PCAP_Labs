@@ -22,7 +22,16 @@ f = lambda x: 3*x # not recommended
 # r,w,a,r+,w+,x (rt,rb)
 '''
 with open(filename, mode = 'rt', encoding = None) as f:
+    ## f.read() -> str, f.read(n) -> str, f.readline() -> str, f.readlines(n) -> list[str]
+    ## f.read() reads the whole file while f.read(1) reads one char at a time
+    ## WARNING: reading a terabyte-long file using this method may corrupt your OS
     pass # file auto closes when exiting the "with" statement
+
+
+# open() is an instance of the iterable class: its __next__ method just
+# returns the next line read in from the file
+# Moreover, you can expect that the object automatically
+# invokes close() when any of the file reads reaches the end of the file.
 
 
 try:

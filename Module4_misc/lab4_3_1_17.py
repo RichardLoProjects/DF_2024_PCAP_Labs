@@ -1,7 +1,8 @@
 '''Lab for PCAP 4.3.1.17 @ 2024-10-25'''
 class StudentsDataException(Exception):
     def __init__(self, message:str):
-        super().__init__(message)
+        super().__init__()
+        self.message = message
         this_class = self.__class__
         if this_class is StudentsDataException:
             raise TypeError(f'Cannot instantiate abstract class {this_class}.')
@@ -16,8 +17,6 @@ class BadLine(StudentsDataException):
 class FileEmpty(StudentsDataException):
     def __init__(self, message:str=''):
         super().__init__(message)
-    def print_error(self) -> None:
-        print(self.message)
 
 def extract_file_contents(file_name:str) -> str:
     try:
@@ -46,7 +45,7 @@ def process_line(line:str) -> tuple:
 def count_student_pts(file_data:str) -> dict:
     student_points = dict()
     lines = file_data.split('\n')
-    if lines in {[], ['']}:
+    if lines in [[], ['']]:
         raise FileEmpty('The file is empty.')
     for line in lines:
         name, points = process_line(line)
@@ -66,7 +65,7 @@ def main() -> None:
     except BadLine as e:
         e.print_error()
     except FileEmpty as e:
-        e.print_error()
+        print(e)
 
 if __name__ == '__main__':
     main()
